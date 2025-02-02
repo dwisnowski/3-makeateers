@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify, render_template
+from flask_bootstrap import Bootstrap
 import sqlite3
 
 app = Flask(__name__)
+Bootstrap(app)
 
 def init_db():
     with sqlite3.connect('database.db') as conn:
