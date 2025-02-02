@@ -9,28 +9,26 @@
     <style>
         /* Custom styling for the hero image */
         .hero-image {
-            background-image: url('static/hero.png');
+            background-image: url('/static/hero.png');
             background-size: cover;
             background-position: center;
             height: 50vh;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
         }
     </style>
 </head>
 <body>
 
     <!-- Hero Section with Hero Image -->
-    <div class="hero-image">
-        <div class="container">
+    <div class="hero-image"></div>
+
+    <!-- Content below the hero image -->
+    <section class="py-5 bg-light" id="about">
+        <div class="container text-center">
             <h1 class="display-3">Welcome to 3 Makeateers!</h1>
             <p class="lead">Your one-stop shop for 3D printed creations, circuit stencil designs, and handmade jewelry!</p>
-            <a href="#products" class="btn btn-light btn-lg">Explore Our Products</a>
+            <a href="#products" class="btn btn-primary btn-lg">Explore Our Products</a>
         </div>
-    </div>
+    </section>
 
     <!-- About Section -->
     <section class="py-5 bg-light" id="about">
@@ -48,7 +46,7 @@
                 <!-- 3D Printed Items -->
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="3d-printed.jpg" class="card-img-top" alt="3D Printed Items">
+                        <img src="static/3d-printed.png" class="card-img-top" alt="3D Printed Items">
                         <div class="card-body">
                             <h5 class="card-title">3D Printed Creations</h5>
                             <p class="card-text">Explore our collection of fun, creative, and educational 3D printed items. From toys to tools, we have something for every maker!</p>
@@ -59,7 +57,7 @@
                 <!-- Circuit Stencil Designs -->
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="circuit-stencil.jpg" class="card-img-top" alt="Circuit Stencils">
+                        <img src="static/cricut.jpg" class="card-img-top" alt="Circuit Stencils">
                         <div class="card-body">
                             <h5 class="card-title">Circuit Stencil Designs</h5>
                             <p class="card-text">Get your hands on unique circuit stencil designs for DIY projects. Perfect for learning and experimenting with electronics.</p>
@@ -70,7 +68,7 @@
                 <!-- Handmade Jewelry -->
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="handmade-jewelry.jpg" class="card-img-top" alt="Handmade Jewelry">
+                        <img src="static/jewelry.jpg" class="card-img-top" alt="Handmade Jewelry">
                         <div class="card-body">
                             <h5 class="card-title">Handmade Jewelry</h5>
                             <p class="card-text">Adorable and stylish handmade jewelry for kids, designed to spark creativity and add a touch of personality to any outfit!</p>
