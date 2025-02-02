@@ -1,9 +1,17 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, url_for, redirect
 from flask_bootstrap import Bootstrap
 import sqlite3
 
 app = Flask(__name__)
 Bootstrap(app)
+
+
+# Game state, to keep track of user choices
+game_state = {
+    'current_scene': 'start',  # Starting point of the game
+    'rescued': False  # Did the player rescue Starshine successfully?
+}
+
 
 def init_db():
     with sqlite3.connect('database.db') as conn:
@@ -40,16 +48,6 @@ def get_messages():
 @app.route('/health', methods=['GET'])
 def health_check():
     return jsonify({'status': 'healthy'}), 200
-
-from flask import Flask, render_template, request, redirect, url_for
-
-app = Flask(__name__)
-
-# Game state, to keep track of user choices
-game_state = {
-    'current_scene': 'start',  # Starting point of the game
-    'rescued': False  # Did the player rescue Starshine successfully?
-}
 
 @app.route('/game')
 def start_game():
