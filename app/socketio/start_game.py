@@ -1,5 +1,5 @@
 from flask_socketio import emit
-from .. import games, socketio
+from app import games, socketio
 
 @socketio.on('start_game')
 def start_game(data):
