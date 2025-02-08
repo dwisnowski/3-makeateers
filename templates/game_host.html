@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game Host</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <h1>Multiplayer Quiz Game</h1>
+    <button onclick="createGame()">Start Game</button>
+    <p>Game Code: <span id="gameCode"></span></p>
+
+    <h2>Question:</h2>
+    <p id="questionText"></p>
+
+    <h2>Leaderboard:</h2>
+    <ul id="leaderboard"></ul>
+
+    <button onclick="nextQuestion()">Next Question</button>
+
+    <script>
+        var socket = io();
+
+        function createGame() {
+            socket.emit('create_game');
+        }
+
+        socket.on('game_created', function(data) {
+            document.getElementById("gameCode").innerText = data.game_code;
+        });
+
+        socket.on('new_question', function(data) {
+            document.getElementById("questionText").innerText = data.question;
+        });
+
+        socket.on('update_leaderboard', function(data) {
+            let leaderboardHTML = "";
+            for (let player in data) {
+                leaderboardHTML += `<li>${player}: ${data[player]} points</li>`;
+            }
+            document.getElementById("leaderboard").innerHTML = leaderboardHTML;
+        });
+
+        function nextQuestion() {
+            let gameCode = document.getElementById("gameCode").innerText;
+            socket.emit('next_question', { game_code: gameCode });
+        }
+    </script>
+</body>
+</html>

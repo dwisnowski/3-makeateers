@@ -23,6 +23,14 @@ def init_db():
 def home():
     return render_template('index.html')
 
+@app.route('/game')
+def index():
+    return render_template('game_host.html')  # Home page for host
+
+@app.route('/game/join')
+def join():
+    return render_template('game_join.html')  # Player login page
+
 @app.route('/add', methods=['POST'])
 def add_message():
     data = request.get_json()
@@ -49,12 +57,12 @@ def get_messages():
 def health_check():
     return jsonify({'status': 'healthy'}), 200
 
-@app.route('/game')
+@app.route('/horse_game')
 def start_game():
     game_state['current_scene'] = 'start'
     return render_template('game_index.html')
 
-@app.route('/game/scene/<scene>', methods=['GET', 'POST'])
+@app.route('/horse_game/scene/<scene>', methods=['GET', 'POST'])
 def scene(scene):
     game_state['current_scene'] = scene
     

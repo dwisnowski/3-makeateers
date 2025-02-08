@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Quiz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <h1>Join Game</h1>
+    <input type="text" id="gameCode" placeholder="Enter Game Code">
+    <input type="text" id="username" placeholder="Enter Your Name">
+    <button onclick="joinGame()">Join</button>
+
+    <h2>Question:</h2>
+    <p id="questionText"></p>
+
+    <h2>Answer:</h2>
+    <button onclick="submitAnswer('A')">A</button>
+    <button onclick="submitAnswer('B')">B</button>
+    <button onclick="submitAnswer('C')">C</button>
+    <button onclick="submitAnswer('D')">D</button>
+
+    <script>
+        var socket = io();
+        var gameCode, username;
+
+        function joinGame() {
+            gameCode = document.getElementById("gameCode").value;
+            username = document.getElementById("username").value;
+            socket.emit('join_game', { game_code: gameCode, username: username });
+        }
+
+        socket.on('join_success', function(data) {
+            alert("Joined game " + data.game_code);
+        });
+
+        socket.on('new_question', function(data) {
+            document.getElementById("questionText").innerText = data.question;
+        });
+
+        function submitAnswer(answer) {
+            socket.emit('submit_answer', { game_code: gameCode, username: username, answer: answer });
+        }
+    </script>
+</body>
+</html>
