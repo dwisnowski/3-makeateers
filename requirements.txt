@@ -1,5 +1,4 @@
 Flask
 Flask-Bootstrap
 Flask-SocketIO
-sqlite3
 eventlet
