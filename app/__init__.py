@@ -13,8 +13,11 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 # Initialize the database
 def init_db():
     db_path = 'database.db'
-    if os.path.exists(db_path):
-        os.remove(db_path)
+    try:
+        if os.path.exists(db_path):
+            os.remove(db_path)
+    except PermissionError:
+        print(f"Warning: Could not remove {db_path} because it is being used by another process.")
     with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, text TEXT)''')
