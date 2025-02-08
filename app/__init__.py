@@ -10,6 +10,8 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 Bootstrap(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+games = {}
+
 # Initialize the database
 def init_db():
     db_path = 'database.db'
