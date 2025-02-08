@@ -1,5 +1,5 @@
 from flask_socketio import emit
-from app.shared import games
+from app.shared import games, question_bank
 
 
 def register_handlers(socketio):
@@ -9,9 +9,9 @@ def register_handlers(socketio):
         game_code = data['game_code']
         game = games.get(game_code, None)
         
-        if game and game['current_question'] + 1 < len(game['questions']):
+        if game and game['current_question'] + 1 < len(question_bank):
             game['current_question'] += 1
-            question = game['questions'][game['current_question']]
+            question = question_bank[game['current_question']]
             emit('new_question', {'question': question}, room=game_code)
         else:
             emit('game_over', {}, room=game_code)

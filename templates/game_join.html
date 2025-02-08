@@ -36,7 +36,7 @@
             socket.emit('join_game', { game_code: gameCode, username: username });
 
             socket.on('join_success', function(data) {
-                window.location.href = '/game'; // Redirect to game page
+                window.location.href = '/game/participant'; // Redirect to game page
             });
 
             socket.on('error', function(data) {

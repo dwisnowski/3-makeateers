@@ -8,7 +8,10 @@ def register_handlers(socketio):
         """Player joins an existing game session."""
         game_code = data['game_code']
         username = data['username']
+        print(f'{username} is trying to join game {game_code}')
         
+        print(games.keys())
+
         if game_code in games:
             games[game_code]['players'][username] = {'score': 0}
             join_room(game_code)

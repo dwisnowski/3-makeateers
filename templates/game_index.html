@@ -18,6 +18,7 @@
         const socket = io();
 
         $('#start-game').click(function() {
+            console.log('Starting game...');
             socket.emit('start_game', { game_code: 'your_game_code' }); // Replace with actual game code
         });
 

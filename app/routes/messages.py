@@ -1,9 +1,9 @@
 from flask import jsonify, Blueprint
 import sqlite3
 
-messages_bp = Blueprint('messages', __name__)
+bp = Blueprint('messages', __name__)
 
-@messages_bp.route('/messages')
+@bp.route('/messages')
 def messages():
     with sqlite3.connect('database.db') as conn:
         cursor = conn.cursor()

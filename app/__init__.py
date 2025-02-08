@@ -5,7 +5,7 @@ import sqlite3
 import os
 import importlib
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates')
 app.config['SECRET_KEY'] = 'your_secret_key'
 Bootstrap(app)
 socketio = SocketIO(app, cors_allowed_origins="*")

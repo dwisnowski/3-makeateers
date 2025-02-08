@@ -1,5 +1,5 @@
 from flask_socketio import emit
-from app.shared import games
+from app.shared import games, question_bank
 
 
 def register_handlers(socketio):
@@ -7,6 +7,6 @@ def register_handlers(socketio):
     def start_game(data):
         """Start the game and send the first question."""
         game_code = data['game_code']
-        if game_code in games and games[game_code]['questions']:
-            question = games[game_code]['questions'][0]
-            emit('new_question', {'question': question}, room=game_code)
+        if game_code in games and question_bank:
+            question = question_bank[0]
+            emit('next_question', {'question': question}, room=game_code)

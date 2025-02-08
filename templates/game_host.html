@@ -29,18 +29,27 @@
         const socket = io();
 
         $(document).ready(function() {
-            // Join the game and get the game code
-            const gameCode = prompt("Enter the game code:");
-            $('#game-code').text(gameCode);
-            socket.emit('join_game', { game_code: gameCode, username: 'Host' });
+            socket.emit('create_game');
 
             // Start game button click event
             $('#start-game').click(function() {
+                console.log('Starting game...');
+                const gameCode = $('#game-code').text();
                 socket.emit('start_game', { game_code: gameCode });
             });
 
-            // Listen for player joined event
-            socket.on('player_joined', function(data) {
+            // Listen for game created event
+            socket.on('game_created', function(data) {
+                console.log('created game: ' + data.game_code);
+                $('#game-code').text(data.game_code);
+
+                console.log('Joining game with code: ' + data.game_code);
+                socket.emit('join_game', { game_code: data.game_code, username: 'Host' });
+            });
+
+              // Listen for player joined event
+              socket.on('player_joined', function(data) {
+                console.log(data.username + ' joined the game');
                 $('#player-list').append(`<li class="list-group-item">${data.username}</li>`);
             });
 
@@ -48,6 +57,7 @@
             socket.on('update_leaderboard', function(leaderboard) {
                 $('#leaderboard-list').empty();
                 for (const player in leaderboard) {
+                    console.log(player + ': ' + leaderboard[player]);   
                     $('#leaderboard-list').append(`<li class="list-group-item">${player}: ${leaderboard[player]}</li>`);
                 }
             });
