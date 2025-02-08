@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save Starshine</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Game Story</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Save Starshine</h1>
-    <p>{{ story }}</p>
-    <ul>
-        {% for choice in choices %}
-        <li><a href="{{ url_for('scene', scene=choice.route) }}">{{ choice.text }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1>Game Scene</h1>
+        <p>{{ story }}</p>
+        <div class="choices">
+            {% for choice in choices %}
+                <a href="{{ url_for('scene', scene=choice.route) }}" class="choice-button">{{ choice.text }}</a>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>

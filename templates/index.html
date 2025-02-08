@@ -3,99 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 Makeateers - Kids' Creations and Crafts</title>
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Custom styling for the hero image */
-        .hero-image {
-            background-image: url('/static/hero.png');
-            background-size: cover;
-            background-position: center;
-            height: 50vh;
-        }
-    </style>
+    <title>Home - 3 Makeateers</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
-    <!-- Hero Section with Hero Image -->
-    <div class="hero-image"></div>
-
-    <!-- Content below the hero image -->
-    <section class="py-5 bg-light" id="about">
-        <div class="container text-center">
-            <h1 class="display-3">Welcome to 3 Makeateers!</h1>
-            <p class="lead">Your one-stop shop for 3D printed creations, circuit stencil designs, and handmade jewelry!</p>
-            <a href="#products" class="btn btn-primary btn-lg">Explore Our Products</a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="py-5 bg-light" id="about">
-        <div class="container text-center">
-            <h2 class="display-4">What We Do</h2>
-            <p class="lead">At 3 Makeateers, we craft and design products that spark creativity and fun. Our products are perfect for kids who love to create, design, and explore!</p>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section class="py-5" id="products">
-        <div class="container text-center">
-            <h2 class="display-4">Our Products</h2>
-            <div class="row">
-                <!-- 3D Printed Items -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="static/3d-printed.png" class="card-img-top" alt="3D Printed Items">
-                        <div class="card-body">
-                            <h5 class="card-title">3D Printed Creations</h5>
-                            <p class="card-text">Explore our collection of fun, creative, and educational 3D printed items. From toys to tools, we have something for every maker!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Circuit Stencil Designs -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="static/cricut.jpg" class="card-img-top" alt="Circuit Stencils">
-                        <div class="card-body">
-                            <h5 class="card-title">Circuit Stencil Designs</h5>
-                            <p class="card-text">Get your hands on unique circuit stencil designs for DIY projects. Perfect for learning and experimenting with electronics.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Handmade Jewelry -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="static/jewelry.jpg" class="card-img-top" alt="Handmade Jewelry">
-                        <div class="card-body">
-                            <h5 class="card-title">Handmade Jewelry</h5>
-                            <p class="card-text">Adorable and stylish handmade jewelry for kids, designed to spark creativity and add a touch of personality to any outfit!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="py-5 bg-dark text-white" id="contact">
-        <div class="container text-center">
-            <h2 class="display-4">Contact Us</h2>
-            <p class="lead">Have any questions? Feel free to reach out to us!</p>
-            <a href="mailto:info@3makeateers.com" class="btn btn-light btn-lg">Email Us</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-4 bg-light text-center">
-        <p>&copy; 2025 3 Makeateers. All Rights Reserved.</p>
-        <a href="/horse_game" class="btn btn-light btn-lg">Secret Horse Game</a>
-        <a href="/game" class="btn btn-light btn-lg">Multiplayer Game</a>
-    </footer>
-
-    <!-- Bootstrap 5 JavaScript Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="container">
+        <h1 class="mt-5">Welcome to 3 Makeateers!</h1>
+        <p class="lead">Join us in an exciting adventure to rescue Starshine!</p>
+        <a href="{{ url_for('join') }}" class="btn btn-primary">Join a Game</a>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Host a Game</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

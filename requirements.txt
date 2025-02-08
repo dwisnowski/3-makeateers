@@ -1,6 +1,5 @@
 Flask
-gunicorn
-flask-bootstrap
-flask-socketio
+Flask-Bootstrap
+Flask-SocketIO
+sqlite3
 eventlet
-flask-cors

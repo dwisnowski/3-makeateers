@@ -3,12 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save Starshine</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Horse Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Save Starshine</h1>
-    <p>Click to start your adventure!</p>
-    <a href="{{ url_for('scene', scene='start') }}">Start</a>
+    <div class="container">
+        <h1>Welcome to the Horse Game!</h1>
+        <p>Get ready to embark on an adventure to rescue Starshine!</p>
+        <button id="start-game">Start Game</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        $('#start-game').click(function() {
+            socket.emit('start_game', { game_code: 'your_game_code' }); // Replace with actual game code
+        });
+
+        socket.on('new_question', function(data) {
+            // Handle new question
+            console.log(data.question);
+        });
+    </script>
 </body>
 </html>
