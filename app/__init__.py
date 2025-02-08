@@ -12,7 +12,10 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Initialize the database
 def init_db():
-    with sqlite3.connect('database.db') as conn:
+    db_path = 'database.db'
+    if os.path.exists(db_path):
+        os.remove(db_path)
+    with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, text TEXT)''')
         conn.commit()
