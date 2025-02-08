@@ -1,11 +1,10 @@
 from flask import render_template, redirect, url_for, Blueprint
-from app import game_state
 
 scene_bp = Blueprint('scene', __name__)
 
 @scene_bp.route('/scene')
 def scene(scene):
-    game_state['current_scene'] = scene
+    game_state = {'current_scene': scene}
     
     if scene == 'start':
         return render_template('game_story.html', story="You are standing in front of your house, looking at the neighborhood ranch. Starshine, the horse, is missing. The ranch is owned by a company known for mistreating animals. What will you do?", choices=[

@@ -1,5 +1,4 @@
 from flask import render_template, Blueprint
-from app import app
 
 game_bp = Blueprint('game', __name__)
 
