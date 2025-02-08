@@ -1,9 +1,10 @@
 from flask_socketio import emit, join_room
-from app import games, socketio
+from app.shared import games
+from app import socketio
 
 @socketio.on('join_game')
 def join_game(data):
-    """Player joins an existing game."""
+    """Player joins an existing game session."""
     game_code = data['game_code']
     username = data['username']
     

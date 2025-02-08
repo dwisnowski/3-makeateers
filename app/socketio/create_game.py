@@ -1,6 +1,7 @@
-from flask_socketio import emit, join_room
+from flask_socketio import emit
 import random
-from app import games, socketio
+from app.shared import games
+from app import socketio
 
 @socketio.on('create_game')
 def create_game():

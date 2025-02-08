@@ -1,5 +1,6 @@
 from flask_socketio import emit
-from app import games, socketio
+from app.shared import games
+from app import socketio
 
 @socketio.on('submit_answer')
 def submit_answer(data):
