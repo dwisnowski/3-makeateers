@@ -1,5 +1,5 @@
 from flask_socketio import emit, join_room
-from .. import socketio, games
+from .. import games, socketio
 
 @socketio.on('join_game')
 def join_game(data):
