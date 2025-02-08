@@ -22,11 +22,8 @@ def init_db():
 
 # Import all routes dynamically
 def import_routes():
-    routes_dir = os.path.join(os.path.dirname(__file__), 'routes')
-    for filename in os.listdir(routes_dir):
-        if filename.endswith('.py') and filename != '__init__.py':
-            module_name = f'app.routes.{filename[:-3]}'
-            importlib.import_module(module_name)
+    from app.routes import register_blueprints
+    register_blueprints(app)
 
 # Import all socketio handlers dynamically
 def import_socketio_handlers():

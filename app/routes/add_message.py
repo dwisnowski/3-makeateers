@@ -1,6 +1,9 @@
-from flask import request, jsonify
+from flask import request, jsonify, Blueprint
 import sqlite3
 
+add_message_bp = Blueprint('add_message', __name__)
+
+@add_message_bp.route('/add_message')
 def add_message():
     data = request.get_json()
     message = data.get('message')

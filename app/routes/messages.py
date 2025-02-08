@@ -1,7 +1,10 @@
-from flask import jsonify
+from flask import jsonify, Blueprint
 import sqlite3
 
-def get_messages():
+messages_bp = Blueprint('messages', __name__)
+
+@messages_bp.route('/messages')
+def messages():
     with sqlite3.connect('database.db') as conn:
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM messages')

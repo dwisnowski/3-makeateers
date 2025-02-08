@@ -1,6 +1,9 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, Blueprint
 from app import game_state
 
+scene_bp = Blueprint('scene', __name__)
+
+@scene_bp.route('/scene')
 def scene(scene):
     game_state['current_scene'] = scene
     
