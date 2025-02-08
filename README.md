@@ -2,22 +2,7 @@
 
 This project is a Flask-based web application that allows users to participate in a game where they can rescue a horse named Starshine. The application features real-time interactions using SocketIO and provides a simple interface for players to join games, answer questions, and track scores.
 
-## Project Structure
 
-```
-3-makeateers
-├── app
-│   ├── __init__.py
-│   ├── routes
-│   │   ├── __init__.py
-│   │   ├── add_message.py
-│   │   ├── game.py
-│   │   ├── health_check.py
-│   │   ├── home.py
-│   │   ├── join.py
-│   │   ├── messages.py
-│   │   └── scene.py
-│   └── socketio
 │       ├── __init__.py
 │       ├── create_game.py
 │       ├── join_game.py
@@ -33,7 +18,6 @@ This project is a Flask-based web application that allows users to participate i
 ├── database.db
 ├── requirements.txt
 └── README.md
-```
 
 ## Features
 
@@ -46,35 +30,34 @@ This project is a Flask-based web application that allows users to participate i
 ## Installation
 
 1. Clone the repository:
-   ```
+   ```sh
    git clone <repository-url>
    cd 3-makeateers
-   ```
 
-2. Install the required packages:
-   ```
-   pip install -r requirements.txt
-   ```
+1. Install the required packages and set up the virtual environment:
+```sh
+make install
+```
 
-3. Initialize the database:
-   ```
-   python -c "from app import init_db; init_db()"
-   ```
+Initialize the database:
+```sh
+make init-db
+```
 
-4. Run the application:
-   ```
-   python app/__init__.py
-   ```
+Run the application:
+```sh
+make run
+```
 
 ## Usage
+* Navigate to http://localhost:5000 in your web browser to access the home page.
+* Follow the prompts to create or join a game and start playing!
 
-- Navigate to `http://localhost:5000` in your web browser to access the home page.
-- Follow the prompts to create or join a game and start playing!
 
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
-
-## License
+## Clean Up
+To clean up the virtual environment, run:
+```sh
+make clean
+```
 
 This project is licensed under the MIT License. See the LICENSE file for details.

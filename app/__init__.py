@@ -10,8 +10,6 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 Bootstrap(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-games = {}
-
 # Initialize the database
 def init_db():
     db_path = 'database.db'
@@ -33,13 +31,15 @@ def import_routes():
                 app.register_blueprint(module.bp)
 
 # Import all socketio handlers dynamically
-def import_socketio_handlers():
+def import_socketio_handlers(socketio):
     socketio_dir = os.path.join(os.path.dirname(__file__), 'socketio')
     for filename in os.listdir(socketio_dir):
         if filename.endswith('.py') and filename != '__init__.py':
             module_name = f'app.socketio.{filename[:-3]}'
-            importlib.import_module(module_name)
+            module = importlib.import_module(module_name)
+            if hasattr(module, 'register_handlers'):
+                module.register_handlers(socketio)
 
 init_db()
 import_routes()
-import_socketio_handlers()
+import_socketio_handlers(socketio)
