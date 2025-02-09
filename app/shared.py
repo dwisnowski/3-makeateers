@@ -1,55 +1,37 @@
+import os
+import importlib
+
 games = {}
 
-question_bank = [
-    {
-        "question": "What is the name of the castle at the center of Magic Kingdom in Disney World?",
-        "answers": ["Cinderella Castle", "Sleeping Beauty Castle", "Beast's Castle", "Snow White's Castle"],
-        "correct_answer": "Cinderella Castle"
-    },
-    {
-        "question": "Which ride is known for the song 'It's a Small World'?",
-        "answers": ["It's a Small World", "Pirates of the Caribbean", "Haunted Mansion", "Peter Pan's Flight"],
-        "correct_answer": "It's a Small World"
-    },
-    {
-        "question": "What is the name of the area in Universal Studios Orlando that is themed after Harry Potter?",
-        "answers": ["The Wizarding World of Harry Potter", "Hogsmeade", "Diagon Alley", "Hogwarts"],
-        "correct_answer": "The Wizarding World of Harry Potter"
-    },
-    {
-        "question": "Which Disney World park is home to the ride 'Avatar Flight of Passage'?",
-        "answers": ["Animal Kingdom", "Magic Kingdom", "Epcot", "Hollywood Studios"],
-        "correct_answer": "Animal Kingdom"
-    },
-    {
-        "question": "What is the name of the nighttime fireworks show at Epcot?",
-        "answers": ["Harmonious", "IllumiNations", "Fantasmic!", "Wishes"],
-        "correct_answer": "Harmonious"
-    },
-    {
-        "question": "Which Universal Studios Orlando ride features a high-speed chase with the Fast & Furious crew?",
-        "answers": ["Fast & Furious – Supercharged", "Transformers: The Ride 3D", "The Amazing Adventures of Spider-Man", "Revenge of the Mummy"],
-        "correct_answer": "Fast & Furious – Supercharged"
-    },
-    {
-        "question": "What is the name of the iconic ball at the entrance of Epcot?",
-        "answers": ["Spaceship Earth", "Mission: SPACE", "Test Track", "The Land"],
-        "correct_answer": "Spaceship Earth"
-    },
-    {
-        "question": "Which Disney World park features the 'Star Wars: Galaxy's Edge' area?",
-        "answers": ["Hollywood Studios", "Magic Kingdom", "Epcot", "Animal Kingdom"],
-        "correct_answer": "Hollywood Studios"
-    },
-    {
-        "question": "What is the name of the water ride at Universal's Islands of Adventure that features Popeye and Bluto?",
-        "answers": ["Popeye & Bluto's Bilge-Rat Barges", "Jurassic Park River Adventure", "Dudley Do-Right's Ripsaw Falls", "One Fish, Two Fish, Red Fish, Blue Fish"],
-        "correct_answer": "Popeye & Bluto's Bilge-Rat Barges"
-    },
-    {
-        "question": "Which Disney World attraction takes guests on a safari through an African savanna?",
-        "answers": ["Kilimanjaro Safaris", "Jungle Cruise", "Expedition Everest", "The Seas with Nemo & Friends"],
-        "correct_answer": "Kilimanjaro Safaris"
+# Function to dynamically load question modules
+def load_questions():
+    question_bank = {
+        "general": [],
+        "parks": {}
     }
-]
+
+    # Load general questions
+    general_module = importlib.import_module('app.shared.general')
+    question_bank["general"] = general_module.general_questions
+
+    # Load park-specific questions
+    parks_dir = os.path.join(os.path.dirname(__file__), 'shared')
+    for park_name in os.listdir(parks_dir):
+        park_path = os.path.join(parks_dir, park_name)
+        if os.path.isdir(park_path) and park_name != '__pycache__':
+            question_bank["parks"][park_name] = {"rides": {}}
+            rides_dir = os.path.join(park_path, 'rides')
+            if os.path.exists(rides_dir):
+                for ride_name in os.listdir(rides_dir):
+                    if ride_name.endswith('.py') and ride_name != '__init__.py':
+                        ride_module_name = f'app.shared.{park_name}.rides.{ride_name[:-3]}'
+                        ride_module = importlib.import_module(ride_module_name)
+                        question_bank["parks"][park_name]["rides"][ride_name[:-3]] = ride_module.questions
+
+    return question_bank
+
+question_bank = load_questions()
+
+
+
 
