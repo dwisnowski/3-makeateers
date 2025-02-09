@@ -7,6 +7,8 @@ def register_handlers(socketio):
     def start_game(data):
         """Start the game and send the first question."""
         game_code = data['game_code']
+        print(f"Starting game: {game_code}")
         if game_code in games and question_bank:
             question = question_bank[0]
-            emit('next_question', {'question': question}, room=game_code)
+            print(f"Sending question: {question}")
+            emit('new_question', {'question': question}, room=game_code)

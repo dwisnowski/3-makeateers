@@ -22,7 +22,7 @@
         const socket = io();
 
         // Listen for the next question event
-        socket.on('next_question', function(data) {
+        socket.on('new_question', function(data) {
             $('#question').text(data.question);
         });
 

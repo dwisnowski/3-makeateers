@@ -9,7 +9,7 @@
     <style>
         /* Custom styling for the hero image */
         .hero-image {
-            background-image: url('/static/hero.png');
+            background-image: url('{{ url_for('static', filename='images/hero2.png') }}');
             background-size: cover;
             background-position: center;
             height: 50vh;
@@ -46,7 +46,7 @@
                 <!-- 3D Printed Items -->
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="static/3d-printed.png" class="card-img-top" alt="3D Printed Items">
+                        <img src="static/images/3d-printed.png" class="card-img-top" alt="3D Printed Items">
                         <div class="card-body">
                             <h5 class="card-title">3D Printed Creations</h5>
                             <p class="card-text">Explore our collection of fun, creative, and educational 3D printed items. From toys to tools, we have something for every maker!</p>
@@ -57,7 +57,7 @@
                 <!-- Circuit Stencil Designs -->
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="static/cricut.jpg" class="card-img-top" alt="Circuit Stencils">
+                        <img src="static/images/cricut.jpg" class="card-img-top" alt="Circuit Stencils">
                         <div class="card-body">
                             <h5 class="card-title">Circuit Stencil Designs</h5>
                             <p class="card-text">Get your hands on unique circuit stencil designs for DIY projects. Perfect for learning and experimenting with electronics.</p>
@@ -68,7 +68,7 @@
                 <!-- Handmade Jewelry -->
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="static/jewelry.jpg" class="card-img-top" alt="Handmade Jewelry">
+                        <img src="static/images/jewelry.jpg" class="card-img-top" alt="Handmade Jewelry">
                         <div class="card-body">
                             <h5 class="card-title">Handmade Jewelry</h5>
                             <p class="card-text">Adorable and stylish handmade jewelry for kids, designed to spark creativity and add a touch of personality to any outfit!</p>
