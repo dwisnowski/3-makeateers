@@ -81,6 +81,12 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
+                        <h5 class="card-title">Question Groups</h5>
+                        <ul id="question-groups" class="list-group"></ul>
+                    </div>
+                </div>
+                <div class="card mt-4">
+                    <div class="card-body">
                         <h5 class="card-title">Leaderboard</h5>
                         <canvas id="leaderboard-chart"></canvas>
                     </div>
@@ -107,7 +113,12 @@
             // Start game button click event
             $('#start-game').click(function() {
                 const gameCode = $('#game-code').text();
-                socket.emit('start_game', { game_code: gameCode });
+                const selectedGroup = $('input[name="question-group"]:checked').val();
+                if (selectedGroup) {
+                    socket.emit('start_game', { game_code: gameCode, question_group: selectedGroup });
+                } else {
+                    alert('Please select a question group to start the game.');
+                }
             });
 
             // Listen for game created event
@@ -142,6 +153,22 @@
                 $('#submission-status li').each(function() {
                     const username = $(this).attr('id').split('-')[1];
                     $(this).text(`${username}: Not Submitted`);
+                });
+            });
+
+            // Load question groups
+            socket.emit('get_question_groups');
+
+            // Listen for question groups
+            socket.on('question_groups', function(groups) {
+                $('#question-groups').empty();
+                groups.forEach(group => {
+                    $('#question-groups').append(`
+                        <li class="list-group-item">
+                            <input type="radio" name="question-group" value="${group}" id="group-${group}">
+                            <label for="group-${group}">${group}</label>
+                        </li>
+                    `);
                 });
             });
         });
