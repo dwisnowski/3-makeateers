@@ -11,4 +11,4 @@ def register_handlers(socketio):
         if game_code in games and question_bank:
             question = question_bank[0]
             print(f"Sending question: {question}")
-            emit('new_question', {'question': question}, room=game_code)
+            emit('new_question', question, room=game_code)

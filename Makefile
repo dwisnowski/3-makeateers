@@ -32,13 +32,14 @@ init-db:
 run:
 	$(VENV_DIR)/Scripts/python -m flask run --host=0.0.0.0 --port=5000
 
-# Run the application with Waitress
-run-waitress:
-	$(WAITRESS) --listen=0.0.0.0:5000 $(FLASK_APP)
+# Run the application with Eventlet
+run-eventlet:
+	$(VENV_DIR)/Scripts/python wsgi.py
+
 
 # Clean up the virtual environment
 clean:
 	rm -rf $(VENV_DIR)
 
 # Phony targets
-.PHONY: install init-db run run-waitress clean
+.PHONY: install init-db run run-eventlet clean

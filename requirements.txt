@@ -3,3 +3,5 @@ Flask-Bootstrap
 Flask-SocketIO
 eventlet
 gunicorn
+waitress
+eventlet
