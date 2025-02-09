@@ -14,5 +14,8 @@ def register_handlers(socketio):
         if answer == correct_answer:
             games[game_code]['players'][username]['score'] += 10
         
+        games[game_code]['submissions'][username] = True
+        emit('answer_submitted', {'username': username}, room=game_code)
+        
         leaderboard = {player: info['score'] for player, info in games[game_code]['players'].items()}
         emit('update_leaderboard', leaderboard, room=game_code)

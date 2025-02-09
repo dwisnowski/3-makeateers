@@ -3,13 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Host</title>
+    <title>Disney Trivia Game Host</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Disney+Font&display=swap">
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/disney_background.png') }}');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Disney Font', sans-serif;
+            color: #333;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-title {
+            color: #ff6f61;
+        }
+        .btn-primary {
+            background-color: #ff6f61;
+            border-color: #ff6f61;
+        }
+        .btn-primary:hover {
+            background-color: #ff3b2f;
+            border-color: #ff3b2f;
+        }
+        h1 {
+            color: #ff6f61;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .theme-park-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .theme-park-background {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background-image: url('{{ url_for('static', filename='images/theme_park_background.png') }}');
+            background-size: cover;
+            background-position: bottom;
+            z-index: -1;
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Game Host</h1>
+        <h1 class="text-center">Disney Trivia Game Host</h1>
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="card">
@@ -23,6 +69,12 @@
                     <div class="card-body">
                         <h5 class="card-title">Players</h5>
                         <ul id="player-list" class="list-group"></ul>
+                    </div>
+                </div>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Submission Status</h5>
+                        <ul id="submission-status" class="list-group"></ul>
                     </div>
                 </div>
             </div>
@@ -42,6 +94,7 @@
             </div>
         </div>
     </div>
+    <div class="theme-park-background"></div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
@@ -65,7 +118,8 @@
 
             // Listen for player joined event
             socket.on('player_joined', function(data) {
-                $('#player-list').append(`<li class="list-group-item">${data.username}</li>`);
+                $('#player-list').append(`<li class="list-group-item" id="player-${data.username}"><img src="{{ url_for('static', filename='images/player_icon.png') }}" class="theme-park-icon">${data.username}</li>`);
+                $('#submission-status').append(`<li class="list-group-item" id="status-${data.username}">${data.username}: Not Submitted</li>`);
             });
 
             // Listen for updated leaderboard
@@ -76,6 +130,19 @@
             // Listen for games in progress
             socket.on('update_games', function(games) {
                 updateGamesChart(games);
+            });
+
+            // Listen for answer submission
+            socket.on('answer_submitted', function(data) {
+                $(`#status-${data.username}`).text(`${data.username}: Submitted`);
+            });
+
+            // Listen for new question event
+            socket.on('new_question', function() {
+                $('#submission-status li').each(function() {
+                    const username = $(this).attr('id').split('-')[1];
+                    $(this).text(`${username}: Not Submitted`);
+                });
             });
         });
 
