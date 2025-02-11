@@ -1,3 +1,5 @@
+ride_name = "TRON Lightcycle"
+
 questions = [
     {
         "question": "What is the full name of the Tron ride at Disney World?",

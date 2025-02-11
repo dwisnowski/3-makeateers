@@ -1,3 +1,5 @@
+ride_name = "Space Mountain"
+
 questions = [
     {
         "question": "What year did Space Mountain open at Disney World?",
