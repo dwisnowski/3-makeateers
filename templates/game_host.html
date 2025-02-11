@@ -82,7 +82,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Question Groups</h5>
-                        <ul id="question-groups" class="list-group"></ul>
+                        <div id="question-groups" class="list-group"></div>
                     </div>
                 </div>
                 <div class="card mt-4">
@@ -128,7 +128,7 @@
             // Start game button click event
             $('#start-game').click(function() {
                 const gameCode = $('#game-code').text();
-                const selectedGroup = $('input[name="question-group"]:checked').val();
+                const selectedGroup = $('#question-groups .list-group-item.active').data('group');
                 if (selectedGroup) {
                     const [park, ride] = selectedGroup.split(':');
                     socket.emit('start_game', { game_code: gameCode, park: park, ride: ride });
@@ -205,12 +205,17 @@
                 console.log(groups);
                 groups.forEach(group => {
                     $('#question-groups').append(`
-                        <li class="list-group-item">
-                            <input type="radio" name="question-group" value="${group.park}:${group.ride}" id="group-${group.park}-${group.ride}">
-                            <label for="group-${group.park}-${group.ride}">${group.park} - ${group.ride}</label>
-                        </li>
+                        <button class="list-group-item list-group-item-action" data-group="${group.park}:${group.ride}">
+                            ${group.park} - ${group.ride}
+                        </button>
                     `);
                 });
+            });
+
+            // Question group selection event
+            $('#question-groups').on('click', '.list-group-item', function() {
+                $('#question-groups .list-group-item').removeClass('active');
+                $(this).addClass('active');
             });
         });
 
