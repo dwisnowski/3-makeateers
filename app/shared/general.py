@@ -1,4 +1,4 @@
-general_questions = [
+questions = [
     {
         "question": "What is the name of the castle at the center of Magic Kingdom in Disney World?",
         "answers": ["Cinderella Castle", "Sleeping Beauty Castle", "Beast's Castle", "Snow White's Castle"],

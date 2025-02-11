@@ -10,7 +10,7 @@ question_bank = {
 
 # Load general questions
 general_module = importlib.import_module('app.shared.general')
-question_bank["general"] = general_module.general_questions
+question_bank["general"] = general_module.questions
 
 # Load park-specific questions
 parks_dir = os.path.join(os.path.dirname(__file__), 'parks')

@@ -99,6 +99,21 @@
                 </div>
             </div>
         </div>
+        <!-- Host Play Section -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Play the Game</h5>
+                        <div id="question-container" class="mb-3">
+                            <h5 id="question-text"></h5>
+                            <div id="answers" class="list-group"></div>
+                        </div>
+                        <button id="submit-answer" class="btn btn-primary">Submit Answer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="theme-park-background"></div>
 
@@ -115,7 +130,8 @@
                 const gameCode = $('#game-code').text();
                 const selectedGroup = $('input[name="question-group"]:checked').val();
                 if (selectedGroup) {
-                    socket.emit('start_game', { game_code: gameCode, question_group: selectedGroup });
+                    const [park, ride] = selectedGroup.split(':');
+                    socket.emit('start_game', { game_code: gameCode, park: park, ride: ride });
                 } else {
                     alert('Please select a question group to start the game.');
                 }
@@ -149,11 +165,35 @@
             });
 
             // Listen for new question event
-            socket.on('new_question', function() {
+            socket.on('new_question', function(question) {
+                $('#question-text').text(question.question);
+                $('#answers').empty();
+                question.answers.forEach((answer, index) => {
+                    $('#answers').append(`
+                        <button class="list-group-item list-group-item-action" data-answer="${index}">${answer}</button>
+                    `);
+                });
                 $('#submission-status li').each(function() {
                     const username = $(this).attr('id').split('-')[1];
                     $(this).text(`${username}: Not Submitted`);
                 });
+            });
+
+            // Answer selection event
+            $('#answers').on('click', '.list-group-item', function() {
+                $('#answers .list-group-item').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            // Submit answer button click event
+            $('#submit-answer').click(function() {
+                const selectedAnswer = $('#answers .list-group-item.active').data('answer');
+                if (selectedAnswer !== undefined) {
+                    const gameCode = $('#game-code').text();
+                    socket.emit('submit_answer', { game_code: gameCode, username: 'Host', answer: selectedAnswer });
+                } else {
+                    alert('Please select an answer before submitting.');
+                }
             });
 
             // Load question groups
@@ -162,11 +202,12 @@
             // Listen for question groups
             socket.on('question_groups', function(groups) {
                 $('#question-groups').empty();
+                console.log(groups);
                 groups.forEach(group => {
                     $('#question-groups').append(`
                         <li class="list-group-item">
-                            <input type="radio" name="question-group" value="${group}" id="group-${group}">
-                            <label for="group-${group}">${group}</label>
+                            <input type="radio" name="question-group" value="${group.park}:${group.ride}" id="group-${group.park}-${group.ride}">
+                            <label for="group-${group.park}-${group.ride}">${group.park} - ${group.ride}</label>
                         </li>
                     `);
                 });
