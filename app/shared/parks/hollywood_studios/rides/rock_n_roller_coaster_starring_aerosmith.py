@@ -89,4 +89,6 @@ questions = [
     {
         "question": "What is the name of the song played in the final scene of Rock 'n' Roller Coaster Starring Aerosmith?",
         "answers": ["Walk This Way", "Sweet Emotion", "Dude (Looks Like a Lady)", "Love in an Elevator"],
-        "correct_answer":
+        "correct_answer": "Walk This Way"
+    }
+]
